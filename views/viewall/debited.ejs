@@ -1,0 +1,37 @@
+<% layout('layout/boilerplate') %>
+
+<div class="grow flex flex-col flex-wrap">
+    <% for(let i=debits.length-1;i>=end;i--){ %>
+        <div class="flex w-[420px] h-[70px]  m-3 rounded-3xl border">
+           <% if(debits[i].category==='Food'){ %> 
+            <i class="fa-solid fa-bowl-food text-3xl m-5" style="color: #fb98b6;"></i>
+            <%}else if(debits[i].category==='Travel'){ %>
+                <i class="fa-solid fa-location-dot text-3xl m-5" style="color:purple "></i>
+            <% }else if(debits[i].category==='Medical'){ %>
+             <i class="fa-solid fa-notes-medical text-3xl m-5" style="color: #f20713;"></i>
+            <% }else if(debits[i].category==='Shoping'){ %>
+                <i class="fa-solid fa-cart-shopping text-3xl m-5"></i>
+            <% }else if(debits[i].category==='Rent'){ %>
+                <i class="fa-solid fa-building text-3xl m-5" style="color: #FFD43B;"></i>
+            <% }else{ %>
+                <i class="fa-solid fa-eye text-3xl m-5" style="color: #f26507;"></i>
+            <% } %>
+
+            <div class="flex m-3 justify-between grow">
+                <div class="flex flex-col">
+                    <div class="text-lg">
+                        <%= debits[i].category %>
+                    </div>
+                    <div class="text-gray-400 text-sm"><%= debits[i].title %></div>
+                    <div class="text-gray-500 text-xs">
+                        <%= debits[i].date %> <!-- Format the date as required -->
+                    </div>
+                </div>
+                <p class="text-xl mt-3">
+                       <span class="text-red-500">-<%= debits[i].amount %></span>         
+                </p>
+            </div>
+        </div>
+        <% } %>
+   
+</div>

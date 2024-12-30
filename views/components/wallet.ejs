@@ -1,0 +1,137 @@
+<div class="flex bg-gray-100 w-[1300px] h-[400px]">
+    <div class=" flex justify-between m-10 rounded-3xl bg-white w-full shadow-lg">
+        <div>
+            <h1 class="m-7 text-xl font-medium">Budget</h1>
+            <div class=" flex flex-col ml-10 gap-5">
+                <ul class="list-none">
+                    <li
+                        class="relative pl-4 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-3 before:h-3 before:bg-[#36A2EB] before:rounded-sm text-xl mb-10">
+                        Available: <span class="font-medium">₹<%= budget.budget-totalPrice %></span>
+                    </li>
+                    <li
+                        class="relative pl-4 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-3 before:h-3 before:bg-red-500 before:rounded-sm text-xl">
+                        Expenses: 
+                        <span class="font-medium">₹<%= totalPrice %></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <canvas class="m-5 mt-3" id="myPieChart" widht="200" height="200"></canvas>
+        </div>
+
+    </div>
+    <div class="flex flex-col w-[950px] gap-10 m-10">
+        <div class="flex flex-col bg-white h-full rounded-3xl shadow-lg">
+            <h1 class="m-5 text-xl font-medium">Monthly Budget:</h1>
+            <div class="grow flex justify-between ">
+                <div id="budgetDisplay" class="text-teal-500 font-medium text-3xl ml-5">₹ <%=budget.budget %></div>
+                <form action="/budget" method="POST">
+                    <input id="budgetInput" class="hidden border border-gray-300 rounded-md p-2 text-xl mb-4 ml-2" type="number"  name="budget" value="3000"/>
+                </form>
+                
+                <button id="editButton"
+                    class="mb-8 mr-6 bg-teal-500 text-white font-medium px-4 rounded-md hover:bg-teal-600">
+                    Edit
+                </button>
+            </div>
+
+            <script>
+                const editButton = document.getElementById("editButton");
+                const budgetDisplay = document.getElementById("budgetDisplay");
+                const budgetInput = document.getElementById("budgetInput");
+
+                editButton.addEventListener("click", () => {
+                    // If in text mode, switch to input mode
+                    if (budgetDisplay.classList.contains("hidden")) {
+                        budgetDisplay.classList.remove("hidden");
+                        budgetInput.classList.add("hidden");
+                        // Update text with the input value
+                        budgetDisplay.textContent = `₹ ${budgetInput.value}`;
+                    } else {
+                        // If in display mode, switch to input mode
+                        budgetDisplay.classList.add("hidden");
+                        budgetInput.classList.remove("hidden");
+                        budgetInput.focus();
+                    }
+                });
+
+                // Handle pressing Enter to update the value
+                budgetInput.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter") {
+                        budgetDisplay.textContent = `₹${budgetInput.value}`;
+                        budgetDisplay.classList.remove("hidden");
+                        budgetInput.classList.add("hidden");
+                    }
+                });
+            </script>
+
+        </div>
+
+
+        <div class="flex flex-col bg-white h-full rounded-3xl shadow-lg">
+            <h1 class="m-5 text-xl font-medium">Total expense:</h1>
+            <% if(totalPrice<0){%>
+            <div class="flex justify-between mr-5">
+                <div class="text-teal-500 font-medium text-3xl ml-5">₹ <%= Math.abs(totalPrice) %></div>
+                <div class="font font-gummy text-teal-500 text-xl">-Wow you are in profit 
+                <span class="text-3xl">🎉</span>
+                </div>
+            </div>
+            <% }else{ %>
+                <div class="text-red-500 font-medium text-3xl ml-5">₹ <%= totalPrice %></div>
+                <% } %>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Dummy data for the pie chart
+//     async function totalPrice() {
+//     try {
+//         const response = await fetch("http://localhost:3000/totalPrice");
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+//         const data = await response.json(); // Parse the JSON response
+//         console.log(data.price)
+
+//     } catch (error) {
+//         console.log("Error:", error);
+//     }
+// }
+totalPrice();
+    const dummyData = {
+        datasets: [{
+            data: [3000,1000],  // Values for each product
+            backgroundColor: [
+                '#36A2EB', // Color for Product B
+                '#FF6384', // Color for Product A
+            ],
+            borderColor: '#ffffff', // White border for visual contrast
+            borderWidth: 2
+        }],
+        labels: ['Available', 'Expenses'],
+    };
+
+    // Chart configuration and rendering
+    const ctx = document.getElementById('myPieChart').getContext('2d');
+    const myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: dummyData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',  // Position the legend at the bottom
+                },
+                tooltip: {
+                    enabled: true  // Enable tooltips for each segment
+                }
+            }
+        }
+    });
+</script>

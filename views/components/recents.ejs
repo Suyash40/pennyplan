@@ -1,0 +1,63 @@
+<div class="w-full h-[350px] flex justify-center items-center border-b">
+    <dotlottie-player src="https://lottie.host/ca541b7b-220e-4db3-9ab6-b7f0cdd8a9c3/Sm0SRK6UkC.json"
+        background="transparent" speed="1" style="width: 400px; height: 400px" direction="1" playMode="normal"
+        autoplay></dotlottie-player>
+</div>
+<div class="bg">
+    <div class="flex justify-between">
+        <div class="text-3xl m-5">Recents</div>
+        <a class="text-xl mr-6 mt-6 mb-6 border-b" href="/recents/viewAll">View All</a>
+    </div>
+  
+    <div>
+        <% for(let i=wallets.length-1;i>=wallets.length-5;i--){ %>
+            <div class="flex w-[420px] h-[70px]  m-3 rounded-3xl">
+               <% if(wallets[i].category==='Food'){ %> 
+                <i class="fa-solid fa-bowl-food text-3xl m-5" style="color: #fb98b6;"></i>
+                <%}else if(wallets[i].category==='Travel'){ %>
+                    <i class="fa-solid fa-location-dot text-3xl m-5" style="color:purple "></i>
+                <% }else if(wallets[i].category==='Medical'){ %>
+                    <i class="fa-solid fa-notes-medical text-3xl m-5" style="color: #f20713;"></i>
+                <% }else if(wallets[i].category==='Shoping'){ %>
+                    <i class="fa-solid fa-cart-shopping text-3xl m-5"></i>
+                <% }else if(wallets[i].category==='Rent'){ %>
+                    <i class="fa-solid fa-building text-3xl m-5" style="color: #FFD43B;"></i>
+                <% }else{ %>
+                    <i class="fa-solid fa-eye text-3xl m-5" style="color: #f26507;"></i>
+                <% } %>
+
+                <div class="flex m-3 justify-between grow">
+                    <div class="flex flex-col">
+                        <div class="text-lg">
+                            <%= wallets[i].category %>
+                        </div>
+                        <div class="text-gray-400 text-sm"><%= wallets[i].title %></div>
+                        <div class="text-gray-500 text-xs">
+                            <%= wallets[i].date %>
+                        </div>                        
+                    </div>
+                    <p class="text-xl mt-3">
+                        <% if (wallets[i].transactionType==='Credit' ) { %>
+                           <span class="text-green-500">+<%= +wallets[i].amount %></span> 
+                                <% } else { %>
+                                    <span class="text-red-600"><%= -wallets[i].amount %></span> 
+                                    <% } %>
+                    </p>
+                </div>
+            </div>
+            <% } %>
+                <!-- <div class="flex w-[420px] h-[70px]  m-3 rounded-3xl"></div>
+        <div class="flex w-[420px] h-[70px]  m-3 rounded-3xl"></div> -->
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+<!-- <i class="fa-solid fa-location-dot"></i>
+<i class="fa-solid fa-cart-shopping text-3xl m-5"></i>
+<i class="fa-solid fa-building text-3xl m-5" style="color: #FFD43B;"></i>
+<i class="fa-solid fa-eye text-3xl m-5" style="color: #f26507;"></i>
+<i class="fa-solid fa-bowl-food text-3xl m-5" style="color: #fb98b6;"></i>
+<i class="fa-solid fa-location-dot text-3xl m-5" style="color:purple "></i>
+<i class="fa-solid fa-notes-medical text-3xl m-5" style="color: #f20713;"></i> -->

@@ -1,0 +1,59 @@
+
+    <div class="text-3xl ml-10 font-medium">Credit & Debit</div>
+    <div class="flex w-full h-[360px] bg-gray-100">
+        <div class="w-1/2 m-10 justify-between bg-white rounded-3xl shadow-lg">
+            <div class="flex justify-between">
+                <div class="mt-7 ml-7 mr-7 text-2xl font-medium">Credited:</div>
+                <a class="text-xl mr-12 mt-6 border-b" href="/credited/viewAll">View All</a>
+            </div>
+            <% for(let i=credits.length-1;i>=credits.length-3;i--){ %>
+            <div class="flex w-[550px] h-[60px]  m-3 rounded-3xl justify-between">
+                <div class="m-4 text-2xl text-teal-500 font-medium"> <%= credits[i].amount %></div>
+                <div class="flex ">
+                    <div class="text-2xl m-4"><%= credits[i].category %></div>
+                    <% if(credits[i].category==='Food'){ %> 
+                        <i class="fa-solid fa-bowl-food text-3xl m-5 " style="color: #fb98b6;"></i>
+                        <%}else if(credits[i].category==='Travel'){ %>
+                            <i class="fa-solid fa-location-dot text-3xl mb-5 m-5" style="color:purple "></i>
+                        <% }else if(credits[i].category==='Medical'){ %>
+                            <i class="fa-solid fa-notes-medical text-3xl m-5" style="color: #f20713;"></i>
+                        <% }else if(credits[i].category==='Shoping'){ %>
+                            <i class="fa-solid fa-cart-shopping text-3xl m-5"></i>
+                        <% }else if(credits[i].category==='Rent'){ %>
+                            <i class="fa-solid fa-building text-3xl m-5" style="color: #FFD43B;"></i>
+                        <% }else{ %>
+                            <i class="fa-solid fa-eye text-3xl m-5" style="color: #f26507;"></i>
+                        <% } %>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="w-1/2 m-10 justify-between bg-white rounded-3xl shadow-lg">
+            <div class="flex justify-between">
+                <div class="mt-7 ml-7 mr-7 text-2xl font-medium">Debited:</div>
+                <a class="text-xl mr-12 mt-6 border-b" href="/debited/viewAll">View All</a>
+            </div>            
+            <% for(let i=debits.length-1;i>=debits.length-3;i--){ %>
+                <div class="flex w-[550px] h-[60px]  m-3 rounded-3xl justify-between">
+                    <div class="m-4 text-2xl text-red-600 font-medium"><%= debits[i].amount %></div>
+                    <div class="flex ">
+                        <div class="text-2xl m-4"><%= debits[i].category %></div>
+                        <% if(debits[i].category==='Food'){ %> 
+                            <i class="fa-solid fa-bowl-food text-3xl m-5 " style="color: #fb98b6;"></i>
+                            <%}else if(debits[i].category==='Travel'){ %>
+                                <i class="fa-solid fa-location-dot text-3xl mb-5 m-5" style="color:purple "></i>
+                            <% }else if(debits[i].category==='Medical'){ %>
+                                <i class="fa-solid fa-notes-medical text-3xl m-5" style="color: #f20713;"></i>
+                            <% }else if(debits[i].category==='Shoping'){ %>
+                                <i class="fa-solid fa-cart-shopping text-3xl m-5"></i>
+                            <% }else if(debits[i].category==='Rent'){ %>
+                                <i class="fa-solid fa-building text-3xl m-5" style="color: #FFD43B;"></i>
+                            <% }else{ %>
+                                <i class="fa-solid fa-eye text-3xl m-5" style="color: #f26507;"></i>
+                            <% } %>
+                    </div>
+                </div>
+                <% } %>       
+        </div>
+    </div>
+   
